@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Adults only] ToKEAo 日本之旅 (11/26 - 12/1)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js for interactivity -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased pb-20" x-data="{ activeTab: 'itinerary', currentDay: 'all' }">
+
+    <!-- Header Hero Section -->
+    <header class="relative bg-cover bg-center h-80 flex items-center justify-center text-white text-center px-4" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1600&q=80');">
+        <div>
+            <span class="bg-red-600 text-xs uppercase px-3 py-1 rounded-full font-bold tracking-widest mb-2 inline-block">Japan Trip</span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">[Adults only] ToKEAo</h1>
+            <p class="text-slate-200 text-sm md:text-base"><i class="fa-regular fa-calendar-alt mr-1"></i> 11.26 — 12.01 (6 Days)</p>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md">
+        <div class="max-w-4xl mx-auto flex justify-around border-b text-sm font-medium">
+            <button @click="activeTab = 'itinerary'" :class="activeTab === 'itinerary' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-route"></i> 每日行程
+            </button>
+            <button @click="activeTab = 'transport'" :class="activeTab === 'transport' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-plane-departure"></i> 機票與交通
+            </button>
+            <button @click="activeTab = 'hotels'" :class="activeTab === 'hotels' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-hotel"></i> 住宿與費用
+            </button>
+            <button @click="activeTab = 'checklist'" :class="activeTab === 'checklist' ? 'border-red-600 text-red-600 font-bold' : 'text-slate-500 border-transparent hover:text-slate-700'" class="py-3 px-4 border-b-2 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-list-check"></i> 行李與須知
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-4xl mx-auto p-4 md:p-6">
+
+        <!-- 1. 每日行程 (ITINERARY) -->
+        <section x-show="activeTab === 'itinerary'" class="space-y-6">
+            <!-- Day Filter Pills -->
+            <div class="flex overflow-x-auto gap-2 pb-2 scrollbar-none text-xs">
+                <button @click="currentDay = 'all'" :class="currentDay === 'all' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap font-medium transition">全部行程</button>
+                <button @click="currentDay = 'd1'" :class="currentDay === 'd1' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D1 (11/26)</button>
+                <button @click="currentDay = 'd2'" :class="currentDay === 'd2' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D2 (11/27)</button>
+                <button @click="currentDay = 'd3'" :class="currentDay === 'd3' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D3 (11/28)</button>
+                <button @click="currentDay = 'd4'" :class="currentDay === 'd4' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D4 (11/29)</button>
+                <button @click="currentDay = 'd5'" :class="currentDay === 'd5' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D5 (11/30)</button>
+                <button @click="currentDay = 'd6'" :class="currentDay === 'd6' ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border'" class="px-3 py-1.5 rounded-full whitespace-nowrap transition">D6 (12/1)</button>
+            </div>
+
+            <!-- Day Cards -->
+
+            <!-- D1 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd1'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 01 — 11/26 (四)</span>
+                        <h2 class="text-xl font-bold text-slate-800">台北 ✈️ 成田 ➔ 橫濱</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> 三井花園飯店橫濱港未來普米爾</span>
+                </div>
+                <div class="space-y-3 text-sm text-slate-600">
+                    <div class="p-3 bg-red-50 text-red-800 rounded-lg">
+                        <span class="font-bold">08:00 桃園機場集合</span>｜<strong>JX802 星宇航空</strong> 10:10 TPE T1 起飛 ➔ 14:20 NRT T2 到達
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">下午</span>
+                        <div class="space-y-1">
+                            <p>搭乘 <strong>N'EX 往「大船」方向</strong> 直達橫濱 (車程約 100 分鐘)</p>
+                            <p class="text-xs text-slate-500">建議班次：N'EX 34號 (15:44~17:16) / N'EX 38號 (16:44~18:15) / N'EX 40號 (17:16~18:51)</p>
+                            <p class="text-xs text-slate-500">飯店交通：轉乘港未來線往「元町・中華街」方向至港未來站 (2站)，1號出口 (Grand Mall Outlet，有電梯) 步行 5 分鐘</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">晚上</span>
+                        <div>
+                            紅磚倉庫聖誕市集 (11:00 - 21:00) 🎄
+                            <a href="https://maps.google.com/?q=Yokohama+Red+Brick+Warehouse" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D2 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd2'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 02 — 11/27 (五)</span>
+                        <h2 class="text-xl font-bold text-slate-800">橫濱 ➔ 鎌倉・江之島 ➔ 橫濱</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> 三井花園飯店橫濱港未來普米爾</span>
+                </div>
+                <div class="space-y-2.5 text-sm text-slate-600">
+                    <div class="p-2.5 bg-amber-50 text-amber-900 rounded-lg">
+                        <i class="fa-solid fa-car text-xs mr-1"></i> <strong>emobi 電動嘟嘟車自駕 (8hr+全險)：</strong> 10:30 鎌倉站西口步行 2 分鐘取車 ➔ 17:30-18:00 前還車
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">早上</span>
+                        <div>
+                            09:45 飯店出發 → 橫濱站轉搭 JR 橫須賀線至鎌倉站 (約25分)<br>
+                            <strong>11:00 – 12:15</strong> 鎌倉大佛 / 長谷寺
+                            <a href="https://maps.google.com/?q=Kotoku-in+Kamakura" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">下午</span>
+                        <div>
+                            <strong>12:30 – 15:30</strong> 江之島漫遊 + 悠閒午餐
+                            <a href="https://maps.google.com/?q=Enoshima" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a><br>
+                            <strong>15:30 – 16:30</strong> 七里濱海邊喝咖啡 / 稻村崎看落日 🌅<br>
+                            <strong>16:30 – 17:30</strong> 輕鬆開回鎌倉市區 (預留塞車緩衝)
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">晚上</span>
+                        <div>
+                            • <strong>[Kli]</strong> Red Bull Symphonic @橫濱港未來會館 (17:30 開門 / 19:00 開演)<br>
+                            • <strong>[Amy / Emma]</strong> 橫濱逛街
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D3 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd3'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 03 — 11/28 (六)</span>
+                        <h2 class="text-xl font-bold text-slate-800">橫濱漫遊 ➔ 東京</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> 三井花園飯店五反田</span>
+                </div>
+                <div class="space-y-2.5 text-sm text-slate-600">
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">早上</span>
+                        <div>
+                            <strong>10:45</strong> 橫濱合味道紀念館 泡麵DIY (已預約，飯店步行約15分)
+                            <a href="https://maps.google.com/?q=Cup+Noodles+Museum+Yokohama" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">下午</span>
+                        <div>
+                            橫濱空中纜車 (10:00~22:00)、橫濱中華街、新橫濱拉麵博物館 (吃拉麵) 🍜
+                            <a href="https://maps.google.com/?q=Shin-Yokohama+Ramen+Museum" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                    <div class="p-2.5 bg-purple-50 text-purple-900 rounded-lg">
+                        <i class="fa-solid fa-martini-glass-citrus text-xs mr-1"></i> <strong>20:00 晚上預約：</strong> ANDAZ TOKYO TORANOMON HILLS BAR (預約代號：<code>539RCG</code>)
+                        <a href="https://maps.google.com/?q=Andaz+Tokyo+Toranomon+Hills" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D4 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd4'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 04 — 11/29 (日)</span>
+                        <h2 class="text-xl font-bold text-slate-800">東京市區：明治神宮・銀座・六本木點燈</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> 三井花園飯店五反田</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">早上</span>
+                        <div>
+                            明治神宮參拜 ⛩️｜<strong>午餐：</strong>原宿、表參道
+                            <a href="https://maps.google.com/?q=Meiji+Jingu" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">下午</span>
+                        <div>
+                            銀座逛街｜<strong>泡芙：</strong>PATISSERIE TEN& (日比谷)｜<strong>拉麵：</strong>銀座 篝 本店
+                            <a href="https://maps.google.com/?q=Ginza+Kagari+Main+Branch" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 篝地圖</a>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">晚上</span>
+                        <div>
+                            六本木聖誕點燈 ✨、東京鐵塔 🗼
+                            <a href="https://maps.google.com/?q=Roppongi+Hills" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D5 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd5'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 05 — 11/30 (一)</span>
+                        <h2 class="text-xl font-bold text-slate-800">東京迪士尼海洋 Tokyo DisneySea</h2>
+                    </div>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-bed"></i> 三井花園飯店五反田</span>
+                </div>
+                <div class="space-y-2 text-sm text-slate-600">
+                    <div class="p-3 bg-blue-50 text-blue-900 rounded-lg font-medium">
+                        🎢 <strong>全日暢玩：</strong> Tokyo DisneySea 東京迪士尼海洋 (門票已於 Trip.com 購妥)
+                        <a href="https://maps.google.com/?q=Tokyo+DisneySea" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-2"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- D6 -->
+            <div x-show="currentDay === 'all' || currentDay === 'd6'" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 transition">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold text-red-600 uppercase tracking-wider">Day 06 — 12/01 (二)</span>
+                        <h2 class="text-xl font-bold text-slate-800">淺草漫步 ➔ 成田 ✈️ 台北 (返家)</h2>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-md font-medium"><i class="fa-solid fa-house"></i> 抵達溫暖的家</span>
+                </div>
+                <div class="space-y-2.5 text-sm text-slate-600">
+                    <div class="p-2.5 bg-amber-50 text-amber-900 rounded-lg">
+                        <i class="fa-solid fa-suitcase-rolling text-xs mr-1"></i> <strong>行李寄送服務：</strong> 09:00 AM 前將行李放置於飯店大廳
+                    </div>
+                    <div class="flex gap-3">
+                        <span class="font-semibold text-slate-800 w-12 shrink-0">白天</span>
+                        <div>
+                            淺草寺周邊逛街 / Patam (09:00 - 17:15)
+                            <a href="https://maps.google.com/?q=Senso-ji+Asakusa" target="_blank" class="text-blue-600 hover:underline text-xs inline-flex items-center gap-1 ml-1"><i class="fa-solid fa-location-dot"></i> 地圖</a>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-slate-100 rounded-lg font-medium text-slate-700">
+                        <i class="fa-solid fa-plane-departure text-red-600 mr-1"></i> <strong>JX805 星宇航空：</strong> 20:10 NRT (T2) 起飛 ➔ 23:20 抵達 TPE (T1)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 機票與交通 (TRANSPORT) -->
+        <section x-show="activeTab === 'transport'" class="space-y-4">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-plane text-red-600"></i> 國際航班資訊 (星宇航空)
+                </h3>
+                <div class="divide-y divide-slate-100 text-sm">
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">去程：台北桃園 (TPE) ✈️ 東京成田 (NRT)</div>
+                        <div class="text-slate-600">11/26 (四) 10:10 TPE T1 ➔ 14:20 NRT T2 (JX802｜08:00 機場集合)</div>
+                    </div>
+                    <div class="py-3">
+                        <div class="font-bold text-slate-800">回程：東京成田 (NRT) ✈️ 台北桃園 (TPE)</div>
+                        <div class="text-slate-600">12/01 (二) 20:10 NRT T2 ➔ 23:20 TPE T1 (JX805)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <h3 class="text-lg font-bold text-slate-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-train text-blue-600"></i> 機場快線與在地交通
+                </h3>
+                <div class="space-y-3 text-sm text-slate-600">
+                    <div class="bg-blue-50 rounded-xl p-4 text-blue-900 space-y-1.5">
+                        <p><strong>N'EX 成田特快 (去回套票)：</strong></p>
+                        <p>• 去程：成田機場 ➔ 橫濱站 (往大船方向，約100分)，建議班次 15:44 / 16:44 / 17:16</p>
+                        <p>• 回程參考：(東京車站發車) 16:33-17:30 / 17:03-17:53</p>
+                        <a href="https://www.jreast.co.jp/tc/downloads/pdf/nex_tc.pdf" target="_blank" class="text-xs text-blue-700 underline inline-block mt-1"><i class="fa-solid fa-file-pdf mr-1"></i> 查看 N'EX 時刻表</a>
+                    </div>
+                    <div class="bg-amber-50 rounded-xl p-4 text-amber-900 space-y-1.5">
+                        <p><strong>鎌倉・江之島自駕 (11/27)：</strong></p>
+                        <p>• <strong>租車平台：</strong> emobi 電動車 (8hr + 全險，NT$2,164)</p>
+                        <p>• <strong>取還車點：</strong> JR 鎌倉站西口步行 2 分鐘 (10:30 取車 / 18:00 前還車)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 住宿與費用 (HOTELS & BUDGET) -->
+        <section x-show="activeTab === 'hotels'" class="space-y-4">
+            <!-- Hotel 1 -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="font-bold text-slate-800">三井花園飯店橫濱港未來普米爾</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">Mitsui Garden Hotel Yokohama Minatomirai Premier</p>
+                        <p class="text-xs text-slate-500 mt-0.5">入住日期：11/26 - 11/28 (2晚)</p>
+                    </div>
+                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-
